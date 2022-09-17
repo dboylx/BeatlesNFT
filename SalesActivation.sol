@@ -10,7 +10,7 @@ contract SalesActivation is Ownable {
     uint256 public publicSalesStartTime;
 
     // pre sales seconds
-    uint256 public preSalesSeconds = 60 * 60 * 1;
+    uint256 public preSalesSeconds = 3600;
 
     modifier isSalesActive() {
         require(
@@ -38,14 +38,8 @@ contract SalesActivation is Ownable {
             publicSalesStartTime > 0 && block.timestamp >= publicSalesStartTime;
     }
 
-    function current()  public view returns (uint256) {
-        return block.timestamp;
-    }
-
     // is the time still in presales
     function isInPresales() public view returns (bool) {
         return block.timestamp - publicSalesStartTime < preSalesSeconds;
     }
-
- 
 }

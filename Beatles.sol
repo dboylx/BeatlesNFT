@@ -34,7 +34,7 @@ contract Beatles is
     uint256 public constant MAX_QTY_PER_MINTER_IN_PRESALES = 2;
 
     // max sales quantity
-    uint256 public constant SALES_MAX_QTY = TOTAL_MAX_QTY - GIFT_MAX_QTY;
+    uint256 public constant SALES_MAX_QTY = 9000;
 
     // ------------------------------------------- variable
     // minter
@@ -43,7 +43,7 @@ contract Beatles is
     // sales quantity
     uint256 public salesMintedQty = 0;
 
-    // git quantity
+    // gift quantity
     uint256 public giftedQty = 0;
 
     // init
@@ -79,7 +79,6 @@ contract Beatles is
         for (uint256 i = 0; i < _mintQty; i++) {
             _safeMint(msg.sender, totalSupply() + 1);
         }
-
     }
 
     // airdrop
@@ -94,9 +93,7 @@ contract Beatles is
         for (uint256 i = 0; i < receivers.length; i++) {
             _safeMint(receivers[i], totalSupply() + 1);
         }
-
     }
-
 
     // set contract URI
     function setContractURI(string calldata URI) external onlyOwner {
@@ -134,6 +131,4 @@ contract Beatles is
         require(tx.origin == msg.sender, "not user!");
         _;
     }
-
-
 }

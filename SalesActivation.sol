@@ -15,7 +15,7 @@ contract SalesActivation is Ownable {
     // pre sales start time
     uint256 public preSalesStartTime;
 
-    // public sales end time
+    // pre sales end time
     uint256 public preSalesEndTime;
 
     constructor() {}

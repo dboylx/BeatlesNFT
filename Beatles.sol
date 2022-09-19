@@ -24,12 +24,6 @@ contract Beatles is
     // gift
     uint256 public constant GIFT_MAX_QTY = 500;
 
-    // max number of NFTs every wallet can buy
-    uint256 public constant MAX_QTY_PER_MINTER_IN_PUBLIC_SALES = 1;
-
-    // max number of NFTs every wallet can buy in presales
-    uint256 public constant MAX_QTY_PER_MINTER_IN_PRESALES = 2;
-
     // max sales quantity
     uint256 public constant SALES_MAX_QTY = TOTAL_MAX_QTY - GIFT_MAX_QTY;
 
@@ -47,6 +41,12 @@ contract Beatles is
     // public minter
     mapping(address => uint256) public preSalesMinterToTokenQty;
 
+    // max number of NFTs every wallet can buy
+    uint256 public max_qty_per_minter_in_public_sales = 2;
+
+    // max number of NFTs every wallet can buy in presales
+    uint256 public max_qty_per_minter_in_presales = 5;
+
     // pre sales quantity
     uint256 public preSalesMintedQty = 0;
 
@@ -61,9 +61,6 @@ contract Beatles is
 
     // URI for NFT meta data
     string private _tokenBaseURI;
-
-    // withdraw wallet
-    address public withdrawAddress;
 
     // init for the contract
     constructor() ERC721("Beatles", "Beatles")   {}
@@ -84,7 +81,7 @@ contract Beatles is
             "Exceed sales max limit!"
         );
         require(
-            preSalesMinterToTokenQty[msg.sender] + _mintQty <= MAX_QTY_PER_MINTER_IN_PRESALES,
+            preSalesMinterToTokenQty[msg.sender] + _mintQty <= max_qty_per_minter_in_presales,
             "Exceed max mint per minter!"
         );
         require(
@@ -115,7 +112,7 @@ contract Beatles is
             "Exceed sales max limit!"
         );
         require(
-            publicSalesMinterToTokenQty[msg.sender] + _mintQty <= MAX_QTY_PER_MINTER_IN_PUBLIC_SALES,
+            publicSalesMinterToTokenQty[msg.sender] + _mintQty <= max_qty_per_minter_in_public_sales,
             "Exceed max mint per minter!"
         );
         require(
@@ -149,13 +146,18 @@ contract Beatles is
 
     }
 
-
-    // ------------------------------------------- withdraw
-    // set withdraw wallet
-    function setWithdrawWallet(address wallet) external onlyOwner{
-
+    // set the quantity per minter can mint in public sales
+    function setQtyPerMinterPublicSales(uint256 qty) external onlyOwner {
+        max_qty_per_minter_in_public_sales = qty;
     }
 
+    // set the quantity per minter can mint in pre sales
+    function setQtyPerMinterPreSales(uint256 qty) external onlyOwner {
+        max_qty_per_minter_in_presales = qty;
+    }
+
+
+    // ------------------------------------------- withdraw
     // withdraw all (if need)
     function withdrawAll() external onlyOwner  {
         require(address(this).balance > 0, "Withdraw: No amount");

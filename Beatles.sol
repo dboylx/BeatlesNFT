@@ -33,8 +33,11 @@ contract Beatles is
     // max sales quantity
     uint256 public constant SALES_MAX_QTY = TOTAL_MAX_QTY - GIFT_MAX_QTY;
 
-    // nft price
-    uint256 public constant SALES_PRICE = 0.01 ether;
+    // nft public sales price
+    uint256 public constant PUBLIC_SALES_PRICE = 0.01 ether;
+
+    // nft pre sales price
+    uint256 public constant PRE_SALES_PRICE = 0.005 ether;
 
 
     // ------------------------------------------- variable
@@ -59,6 +62,9 @@ contract Beatles is
     // URI for NFT meta data
     string private _tokenBaseURI;
 
+    // withdraw wallet
+    address public withdrawAddress;
+
     // init for the contract
     constructor() ERC721("Beatles", "Beatles")   {}
 
@@ -82,7 +88,7 @@ contract Beatles is
             "Exceed max mint per minter!"
         );
         require(
-            msg.value >= _mintQty * SALES_PRICE,
+            msg.value >= _mintQty * PRE_SALES_PRICE,
             "Insufficient ETH!"
         );
 
@@ -113,7 +119,7 @@ contract Beatles is
             "Exceed max mint per minter!"
         );
         require(
-            msg.value >= _mintQty * SALES_PRICE,
+            msg.value >= _mintQty * PUBLIC_SALES_PRICE,
             "Insufficient ETH"
         );
 
@@ -144,6 +150,19 @@ contract Beatles is
     }
 
 
+    // ------------------------------------------- withdraw
+    // set withdraw wallet
+    function setWithdrawWallet(address wallet) external onlyOwner{
+
+    }
+
+    // withdraw all (if need)
+    function withdrawAll() external onlyOwner  {
+        require(address(this).balance > 0, "Withdraw: No amount");
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+
     // set contract URI
     function setContractURI(string calldata URI) external onlyOwner {
         _contractURI = URI;
@@ -169,11 +188,6 @@ contract Beatles is
         return _tokenBaseURI;
     }
 
-    // withdraw all (if need)
-    function withdrawAll() external onlyOwner  {
-        require(address(this).balance > 0, "Withdraw: No amount");
-        payable(msg.sender).transfer(address(this).balance);
-    }
 
     // not other contract
     modifier callerIsUser() {

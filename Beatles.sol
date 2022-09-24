@@ -22,7 +22,7 @@ contract Beatles is
     uint256 public constant TOTAL_MAX_QTY = 10000;
 
     // gift
-    uint256 public constant GIFT_MAX_QTY = 500;
+    uint256 public constant GIFT_MAX_QTY = 600;
 
     // max sales quantity
     uint256 public constant SALES_MAX_QTY = TOTAL_MAX_QTY - GIFT_MAX_QTY;

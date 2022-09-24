@@ -42,10 +42,10 @@ contract Beatles is
     mapping(address => uint256) public preSalesMinterToTokenQty;
 
     // max number of NFTs every wallet can buy
-    uint256 public max_qty_per_minter_in_public_sales = 2;
+    uint256 public max_qty_per_minter_in_public_sales = 1;
 
     // max number of NFTs every wallet can buy in presales
-    uint256 public max_qty_per_minter_in_presales = 5;
+    uint256 public max_qty_per_minter_in_presales = 2;
 
     // pre sales quantity
     uint256 public preSalesMintedQty = 0;

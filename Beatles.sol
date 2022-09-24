@@ -28,10 +28,10 @@ contract Beatles is
     uint256 public constant SALES_MAX_QTY = TOTAL_MAX_QTY - GIFT_MAX_QTY;
 
     // nft pre sales price
-    uint256 public constant PRE_SALES_PRICE = 0.002 ether;
+    uint256 public constant PRE_SALES_PRICE = 0.01 ether;
 
     // nft public sales price
-    uint256 public constant PUBLIC_SALES_PRICE = 0.005 ether;
+    uint256 public constant PUBLIC_SALES_PRICE = 0.05 ether;
 
 
     // ------------------------------------------- variable
